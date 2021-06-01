@@ -1,0 +1,23 @@
+.header_nav {
+  list-style-type: none;
+  display: inline-block;
+}
+
+.header_nav li {
+  margin-right: 30px;
+  display: inline-block;
+}
+
+.input:focus {
+  outline: none;
+}
+
+.input:hover {
+  border-color: black !important;
+}
+
+@media screen and (max-width: 900px) {
+  .vector {
+    display: none;
+  }
+}
