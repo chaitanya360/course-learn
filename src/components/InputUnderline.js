@@ -1,7 +1,6 @@
 import React, { useRef, useState } from "react";
 import { colors, sizes } from "../utility";
 import "./components.css";
-import classnames from "classnames";
 
 function InputUnderline({
   text = "Enter Here",
@@ -64,7 +63,7 @@ function InputUnderline({
         }}
         onFocusCapture={handleOnFocus}
         onBlur={handleOnBlur}
-        className={classnames("form-control", "input", "is-invalid")}
+        className="input"
         ref={inputRef}
         value={value}
         onChange={(val) => setValue(val.target.value)}
