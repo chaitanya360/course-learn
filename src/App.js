@@ -1,9 +1,11 @@
 import { Provider } from "react-alert";
 import "./App.css";
-import SignUp from "./pages/SignUp/SignUp";
 import AlertTemplate from "react-alert-template-basic";
-import { useState } from "react";
-import Display from "./pages/Display";
+import Routes from "./Routes";
+import Header from "./components/Header";
+import CoursesContext from "./Context/CoursesContext";
+import { useEffect, useState } from "react";
+import UserContext from "./Context/UserContext";
 
 const options = {
   position: "bottom center",
@@ -13,16 +15,29 @@ const options = {
 };
 
 function App() {
-  const [submit, setSubmit] = useState(false);
-  const [values, setValues] = useState();
+  const [courses, setCourses] = useState(false);
+  const [user, setUser] = useState(false);
+  const getCourses = () => {
+    fetch(
+      "https://s3-ap-southeast-1.amazonaws.com/he-public-data/courses26269ff.json"
+    )
+      .then((response) => response.json().then((data) => setCourses(data)))
+      .catch((e) => alert("somthing went wrong"));
+  };
+
+  useEffect(() => {
+    getCourses();
+  }, []);
+
   return (
-    <Provider template={AlertTemplate} {...options}>
-      {submit ? (
-        <Display values={values} />
-      ) : (
-        <SignUp setValues={setValues} setSubmit={setSubmit} />
-      )}
-    </Provider>
+    <UserContext.Provider value={{ user, setUser }}>
+      <CoursesContext.Provider value={{ courses, setCourses }}>
+        <Provider template={AlertTemplate} {...options}>
+          <Header />
+          <Routes />
+        </Provider>
+      </CoursesContext.Provider>
+    </UserContext.Provider>
   );
 }
 

@@ -1,24 +1,30 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useAlert } from "react-alert";
+import { useHistory } from "react-router-dom";
 import Button from "../../components/Button";
 import CenteredHeadline from "../../components/CenteredHeadline";
 import InputUnderline from "../../components/InputUnderline";
 import Logo from "../../components/Logo";
 import SocialLoginButton from "../../components/SocialLoginButton";
 import VectorImage from "../../components/VectorImage";
+import UserContext from "../../Context/UserContext";
 import { colors, sizes } from "../../utility";
 
-function SignUp() {
+function Login() {
   const alert = useAlert();
   const [width, setWidth] = useState(window.innerWidth);
   const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
+  const [password, setpassword] = useState("");
+
+  const setUser = useContext(UserContext).setUser;
+  const history = useHistory();
 
   const handleSubmit = () => {
-    if (username.length !== 0 && email.length !== 0) {
-      // setValues({ username, email, add, mobile });
+    if (username.length !== 0 && password.length !== 0) {
+      setUser(username);
+      history.push("/dashboard");
     } else {
-      alert.show("Fields Cannot Be Empty");
+      alert.show("Field Cannot Be Empty");
     }
   };
 
@@ -39,7 +45,7 @@ function SignUp() {
       <div style={{ padding: "10px 20px" }}>
         <Logo />
       </div>
-      <CenteredHeadline title="Sign Up" />
+      <CenteredHeadline title="Login" />
       <VectorImage
         src="images/cat_on_table.png"
         bottom={0}
@@ -71,18 +77,17 @@ function SignUp() {
             setValue={setUsername}
           />
           <InputUnderline
-            text="Email"
-            type="email"
-            value={email}
-            setValue={setEmail}
+            text="password"
+            type="password"
+            value={password}
+            setValue={setpassword}
           />
 
           <Button
-            bg_color={colors.orange}
-            text="Register"
+            bg_color={colors.secondary}
+            text="Login"
             style={{
-              paddingInline: "40px",
-              paddingBlock: "8px",
+              padding: "8px 40px",
               margin: "50px",
               cursor: "pointer",
             }}
@@ -115,21 +120,9 @@ function SignUp() {
             <SocialLoginButton signUp src="fb_color.png" With="Facebook" />
           </div>
         </div>
-        <div
-          style={{
-            fontSize: sizes.small,
-            fontWeight: 500,
-            textAlign: "center",
-            width: width < 800 ? "90%" : "50%",
-            margin: "auto",
-            marginTop: "25px",
-          }}
-        >
-          * By signing up, you agree to our Terms of Use.
-        </div>
       </div>
     </div>
   );
 }
 
-export default SignUp;
+export default Login;

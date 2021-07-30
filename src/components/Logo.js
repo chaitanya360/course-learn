@@ -1,7 +1,11 @@
 import React from "react";
 
-function Logo(props) {
-  return <div className="logo">Company.in</div>;
+function Logo({ color }) {
+  return (
+    <div className="logo" style={{ color }}>
+      LearnCourse.in
+    </div>
+  );
 }
 
 export default Logo;

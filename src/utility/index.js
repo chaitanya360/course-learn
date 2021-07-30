@@ -9,6 +9,9 @@ let colors = {
   font_dark: "#000000",
   font_medium: "#636363",
   font_light: "#C4C4C4",
+  primary: "#3F4444",
+  secondary: "#95006D",
+  ternary: "#C4D600",
 };
 
 let sizes = {
